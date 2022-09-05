@@ -29,6 +29,8 @@ for city in cities:
             .find_all("a", attrs={"class": "restaurant-link"})
 
         for item in items:
-            item_link = item["href"]
+            item_link = URL + item["href"].replace("coffeeshops/","")
+            item_soup = get_soup(item_link)
 
+            cafe_name = item_soup.find("h1", attrs={"property": "name"}).text.strip()
 
