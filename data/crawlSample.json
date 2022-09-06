@@ -1,0 +1,228 @@
+[
+    {
+        "name": "ملو",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/melo/ملو/",
+        "address": "خیابان ولیعصر،ضلع جنوب شرقی میدان ولیعصر جنب ورودی B پاساژ تجارت ایرانیان",
+        "province": "خیابان ولیعصر",
+        "phone": "02188929415",
+        "price_class": 2,
+        "work_start": "8",
+        "work_end": "22",
+        "feature_list": [
+            "ارسال رایگان (Delivery)",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 4,
+        "service": 2,
+        "cost_value": 3,
+        "environment": 5
+    },
+    {
+        "name": "هنر",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/honar_cafe/هنر/",
+        "address": "خیابان انقلاب،بین خیابان وصال و قدس،جنب سینما سپیده،کوچه اسکو شماره ۸",
+        "province": "خیابان انقلاب",
+        "phone": "02166484885",
+        "price_class": 2,
+        "work_start": "9:30",
+        "work_end": "22:30",
+        "feature_list": [
+            "موسیقی زنده",
+            "سیگار",
+            "اینترنت رایگان",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 4,
+        "service": 3,
+        "cost_value": 4,
+        "environment": 4
+    },
+    {
+        "name": "خامیز",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/cafekhamiz/خامیز/",
+        "address": "زعفرانیه، آصف، انتهای کوچه حامد، نبش باغستان ششم",
+        "province": "زعفرانیه",
+        "phone": "02126808894",
+        "price_class": 2,
+        "work_start": "8",
+        "work_end": "24",
+        "feature_list": [
+            "ارسال رایگان (Delivery)",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 0,
+        "service": 0,
+        "cost_value": 0,
+        "environment": 0
+    },
+    {
+        "name": "دریا باز",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/darya_baz/دریا-باز/",
+        "address": "ولنجک ،بلوار دانشجو،خیابان گلریزان، بالاتر از میدان گلریزان",
+        "province": "ولنجک",
+        "phone": "02122429032",
+        "price_class": 2,
+        "work_start": "12",
+        "work_end": "24",
+        "feature_list": [
+            "سیگار",
+            "قلیان",
+            "فضای باز",
+            "اینترنت رایگان",
+            "چشم انداز",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 4,
+        "service": 4,
+        "cost_value": 4,
+        "environment": 3
+    },
+    {
+        "name": "بلینسکی",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/belinski/بلینسکی/",
+        "address": "کریمخان،ابتدای خیابان ماهشهر،پلاک ۱۱۸",
+        "province": "کریمخان",
+        "phone": "02186072171",
+        "price_class": 2,
+        "work_start": "9",
+        "work_end": "24",
+        "feature_list": [
+            "اینترنت رایگان",
+            "ارسال رایگان (Delivery)",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 5,
+        "service": 5,
+        "cost_value": 5,
+        "environment": 5
+    },
+    {
+        "name": "بیت بیسترو",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/beatbistro/بیت-بیسترو/",
+        "address": "خيابان مطهري،خيابان لارستان،نبش كوچه پور فلاح",
+        "province": "خيابان مطهري",
+        "phone": "02188890341",
+        "price_class": 2,
+        "work_start": "7",
+        "work_end": "21",
+        "feature_list": [
+            "موسیقی زنده",
+            "سیگار",
+            "اینترنت رایگان",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 5,
+        "service": 5,
+        "cost_value": 4,
+        "environment": 5
+    },
+    {
+        "name": "راک",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/caferack/راک/",
+        "address": "شهرک غرب، بلوار دریا، خیابان گلها، نبش توحید 3،پلاک 10",
+        "province": "شهرک غرب",
+        "phone": "02188369196",
+        "price_class": 2,
+        "work_start": "9",
+        "work_end": "24",
+        "feature_list": [
+            "صبحانه",
+            "سیگار",
+            "فضای باز",
+            "اینترنت رایگان",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 4,
+        "service": 4,
+        "cost_value": 4,
+        "environment": 4
+    },
+    {
+        "name": "چیمنی (پاسداران)",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/chimney/چیمنی--پاسداران-/",
+        "address": "خیابان پاسداران ، بین گلستان 8و9",
+        "province": "خیابان پاسداران",
+        "phone": "02122579490",
+        "price_class": 2,
+        "work_start": "11",
+        "work_end": "24",
+        "feature_list": [
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 4,
+        "service": 4,
+        "cost_value": 3,
+        "environment": 3
+    },
+    {
+        "name": "شمرون (شهرک غرب)",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/shemroon_gharb/شمرون--شهرک-غرب-/",
+        "address": "شهرك غرب،خيابان ايران زمين شمالى،رو به روى بيمارستان بهمن،جنب فرهنگسراى ابن سينا",
+        "province": "شهرك غرب",
+        "phone": "02188570359",
+        "price_class": 2,
+        "work_start": "9",
+        "work_end": "24",
+        "feature_list": [
+            "سیگار",
+            "ارسال رایگان (Delivery)",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 3,
+        "service": 4,
+        "cost_value": 4,
+        "environment": 3
+    },
+    {
+        "name": "بام ری",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/bamerey/بام-ری/",
+        "address": "خیابان فداییان اسلام صدمتر مانده به میدان اصلی شهرری",
+        "province": "خیابان فداییان اسلام صدمتر مانده به میدان اصلی شهرری",
+        "phone": "02155967000",
+        "price_class": 2,
+        "work_start": "11",
+        "work_end": "23:30",
+        "feature_list": [
+            "فضای باز",
+            "اینترنت رایگان",
+            "چشم انداز",
+            "ارسال رایگان (Delivery)",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 4,
+        "service": 4,
+        "cost_value": 4,
+        "environment": 4
+    },
+    {
+        "name": "آوانی",
+        "city": "tehran",
+        "link": "https://fidilio.com/coffeeshops/avani/آوانی/",
+        "address": "خیابان یوسف آباد ، بین خیابان 62 و 64",
+        "province": "خیابان یوسف آباد",
+        "phone": "02188615560",
+        "price_class": 2,
+        "work_start": "12",
+        "work_end": "23",
+        "feature_list": [
+            "سیگار",
+            "فضای باز",
+            "ارسال رایگان (Delivery)",
+            "دستگاه کارت خوان"
+        ],
+        "food_quality": 8,
+        "service": 4,
+        "cost_value": 4,
+        "environment": 4
+    }
+]
