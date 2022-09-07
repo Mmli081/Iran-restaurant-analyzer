@@ -18,7 +18,9 @@ def insert_cafe(result):
     for row in result:
         data = []
         for att in att_cafe:
-            data.append(row[att])
+            if att in ('work_start','work_end'):
+                data.append(time_format(row[att]))
+            else: data.append(row[att])
         data = tuple(data)
         db.insert('cafe',data)
 
@@ -26,8 +28,25 @@ def insert_cafe_address(result):
     for i,row in enumerate(result):
         ad = row['address']
         data = f'({i+1},\" {ad} \")'
-        print(data)
         db.insert('cafe_address',data)
 
-# def insert_cafe_rating():
-#     att_rating = ["price_class","food_quality","service","cost_value","environment"]
+def insert_cafe_rating(result):
+    att_rating = ["food_quality","service","price_class","cost_value","environment"]
+    for i,row in enumerate(result):
+        data = [i+1]
+        for att in att_rating:
+            data.append(row[att])
+        data = tuple(data)
+        db.insert('cafe_rating',data)
+def insert_cafe_features(result):
+    for i,row in enumerate(result):
+        data = [i+1]
+        for f in prep_features(row['feature_list']):
+            data.append(f)
+        data = tuple(data)
+        db.insert('cafe_features',data)
+
+insert_cafe(result)
+insert_cafe_address(result)
+insert_cafe_features(result)
+insert_cafe_rating(result)
