@@ -23,9 +23,11 @@ def insert_cafe(result):
         db.insert('cafe',data)
 
 def insert_cafe_address(result):
-    for row in result:
-        db.insert('cafe_address',(row['address'],))
+    for i,row in enumerate(result):
+        ad = row['address']
+        data = f'({i+1},\" {ad} \")'
+        print(data)
+        db.insert('cafe_address',data)
 
 # def insert_cafe_rating():
 #     att_rating = ["price_class","food_quality","service","cost_value","environment"]
-#     for row in result:
