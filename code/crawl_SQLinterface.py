@@ -1,7 +1,9 @@
 import json
-from CRUD import Cafe, CafeAddress, CafeFeatures, CafeRating,Database, set_table
+from operator import and_
+from CRUD import Cafe, CafeAddress, CafeFeatures, CafeRating,Database, set_table, and_
 from crawl import scrape
 import pandas as pd
+from datetime import datetime
 
 # result = json.load(scrape())
 # db = Database('127.0.0.1:3306','sobhan','$Gh9170392008','group4')
@@ -66,17 +68,28 @@ def insert_cafe_features(result):
         LastID+=1
     db.insert(obj_list)
 
-def filter_by_city(table, city):
-    return set_table(table).city == city
+def filter_by_city(city):
+    return set_table('cafe').city == city
 
-def filter_by_province(table, province):
-    return set_table(table).province == province
+def filter_by_province(province):
+    return set_table('cafe').province == province
 
-def filter_by_has_features(table, features: list):
-    return set_table("cafe_features")
+# def filter_by_has_features(features: list):
 
-def read(tablename, filter=None):
-    return pd.read_sql(*db.read(tablename, filter))
+def filter_by_range_work_time(work_start: str, work_end="00:00"):
+    work_start = datetime.strptime(work_start, '%H:%M').time()
+    if work_end == "00:00":
+        return set_table("cafe").work_start >= work_start
+    work_end = datetime.strptime(work_end, '%H:%M').time()
+    return and_(set_table("cafe").work_start >= work_start,
+                set_table("cafe").work_end <= work_end)
+
+def filter_by_range_cost(_from: int=0, _to: int=5):
+    return and_(set_table('cafe').cost >= _from,
+                set_table('cafe').cost <= _to,)
+
+def read(tablename, filter=None, order=None):
+    return pd.read_sql(*db.read(tablename, filter, order))
 
 
 if __name__ == "__main__":
