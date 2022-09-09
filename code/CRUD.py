@@ -1,7 +1,9 @@
+import string
+from typing import Text
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import Column, Integer, String, Time, Text
-from sqlalchemy import Sequence, ForeignKey
+from sqlalchemy import Column, Integer, String, Time , ForeignKey ,TEXT
+from sqlalchemy import Sequence
 
 Base = declarative_base()
 
@@ -33,30 +35,39 @@ class Cafe(Base):
         return f"{self.cafe_name}"
 
 
-#TODO
 class CafeAddress(Base):
     __tablename__ = 'cafe_address'
+    cafe_id = Column(Integer,ForeignKey("cafe.cafe_id"),primary_key=True)
+    cafe_address = Column(TEXT)
 
-    cafe_id = Column(Integer,ForeignKey("cafe.cafe_id"), primary_key=True)
-    cafe_address = Column(Text)
+class CafeFeatures(Base):
+    __tablename__ = 'cafe_features'
+    cafe_id = Column(Integer,ForeignKey("cafe.cafe_id"),primary_key=True)
+    hookah = Column(Integer)
+    internet = Column(Integer)
+    delivery = Column(Integer)
+    smoking = Column(Integer)
+    open_space = Column(Integer)
+    live_music = Column(Integer)
+    parking = Column(Integer)
+    pos = Column(Integer)
 
-    def __repr__(self):
-        return self.cafe_address
-
-# class CafeFeatures(Base):
-#     pass
-
-# class CafeRating(Base):
-#     pass
-
+class CafeRating(Base):
+    __tablename__ = 'cafe_rating'
+    cafe_id = Column(Integer,ForeignKey("cafe.cafe_id"),primary_key=True)
+    food_quality = Column(Integer)
+    service_quality = Column(Integer)
+    cost = Column(Integer)
+    cost_value = Column(Integer)
+    environment = Column(Integer)
 
 def set_table(tablename: str):
     tablename = tablename.title()
     match tablename:
         case "Cafe": return Cafe
         case "Cafe_Address": return CafeAddress
-        # case "Cafe_Features": return CafeFeatures
-        # case "Cafe_Fating": return CafeRating
+        case "Cafe_Features": return CafeFeatures
+        case "Cafe_Rating": return CafeRating
 
 
 class Database:
