@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import Column, Integer, String, Time
-from sqlalchemy import Sequence
+from sqlalchemy import Column, Integer, String, Time, Text
+from sqlalchemy import Sequence, ForeignKey
 
 Base = declarative_base()
 
@@ -35,22 +35,28 @@ class Cafe(Base):
 
 #TODO
 class CafeAddress(Base):
-    pass
+    __tablename__ = 'cafe_address'
 
-class CafeFeatures(Base):
-    pass
+    cafe_id = Column(Integer,ForeignKey("cafe.cafe_id"), primary_key=True)
+    cafe_address = Column(Text)
 
-class CafeRating(Base):
-    pass
+    def __repr__(self):
+        return self.cafe_address
+
+# class CafeFeatures(Base):
+#     pass
+
+# class CafeRating(Base):
+#     pass
 
 
 def set_table(tablename: str):
     tablename = tablename.title()
     match tablename:
         case "Cafe": return Cafe
-        case "Cafe_address": return CafeAddress
-        case "Cafe_features": return CafeFeatures
-        case "Cafe_rating": return CafeRating
+        case "Cafe_Address": return CafeAddress
+        # case "Cafe_Features": return CafeFeatures
+        # case "Cafe_Fating": return CafeRating
 
 
 class Database:
@@ -62,10 +68,12 @@ class Database:
         Session.configure(bind=self.engine)
         self.session = Session()
 
-    def read(self, tablename: str):
+    def read(self, tablename: str, filter=None):
         tablename = set_table(tablename)
-        #TODO
-        return self.session.query(tablename).statement, self.session.bind
+        query = self.session.query(tablename)
+        if filter is not None:
+            query = query.filter(filter)
+        return query.statement, self.session.bind
 
     # insert function
     def insert(self, tablename: str(), data):

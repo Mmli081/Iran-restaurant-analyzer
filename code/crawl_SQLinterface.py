@@ -1,5 +1,5 @@
 import json
-from CRUD import Database
+from CRUD import Database, set_table
 from crawl import scrape
 import pandas as pd
 
@@ -54,8 +54,17 @@ def insert_cafe_features(result):
         data = tuple(data)
         db.insert('cafe_features',data)
 
-def read(tablename):
-    return pd.read_sql(*db.read(tablename))
+def filter_by_city(table, city):
+    return set_table(table).city == city
+
+def filter_by_province(table, province):
+    return set_table(table).province == province
+
+def filter_by_has_features(table, features: list):
+    return set_table("cafe_features")
+
+def read(tablename, filter=None):
+    return pd.read_sql(*db.read(tablename, filter))
 
 
 if __name__ == "__main__":
