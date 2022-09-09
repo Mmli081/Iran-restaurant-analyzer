@@ -1,9 +1,7 @@
-from secrets import choice
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import Column, Integer, String, Time
 from sqlalchemy import Sequence
-import pandas as pd
 
 Base = declarative_base()
 
@@ -35,10 +33,25 @@ class Cafe(Base):
         return f"{self.cafe_name}"
 
 
+#TODO
+class CafeAddress(Base):
+    pass
+
+class CafeFeatures(Base):
+    pass
+
+class CafeRating(Base):
+    pass
+
+
 def set_table(tablename: str):
     tablename = tablename.title()
     match tablename:
         case "Cafe": return Cafe
+        case "Cafe_address": return CafeAddress
+        case "Cafe_features": return CafeFeatures
+        case "Cafe_rating": return CafeRating
+
 
 class Database:
 
@@ -51,6 +64,7 @@ class Database:
 
     def read(self, tablename: str):
         tablename = set_table(tablename)
+        #TODO
         return self.session.query(tablename).statement, self.session.bind
 
     # insert function
