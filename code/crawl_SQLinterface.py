@@ -1,13 +1,14 @@
 import json
 from CRUD import Database
 from crawl import scrape
+import pandas as pd
 
 # result = json.load(scrape())
 # db = Database('127.0.0.1:3306','sobhan','$Gh9170392008','group4')
 
 # test
 import json
-with open("data/crawlSample.json") as f:
+with open("../data/crawlSample.json") as f:
     result = json.load(f)
 db = Database('localhost','mml','$Mml09357528086','group4Local')
 
@@ -52,6 +53,9 @@ def insert_cafe_features(result):
             data.append(f)
         data = tuple(data)
         db.insert('cafe_features',data)
+
+def read(tablename):
+    return pd.read_sql(*db.read(tablename))
 
 
 if __name__ == "__main__":
