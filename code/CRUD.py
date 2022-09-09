@@ -1,9 +1,8 @@
-import string
-from typing import Text
+from operator import and_
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import Column, Integer, String, Time , ForeignKey ,TEXT
-from sqlalchemy import Sequence
+from sqlalchemy import Sequence, select, and_
 
 Base = declarative_base()
 
@@ -33,7 +32,6 @@ class Cafe(Base):
 
     def __repr__(self) -> str:
         return f"{self.cafe_name}"
-
 
 class CafeAddress(Base):
     __tablename__ = 'cafe_address'
@@ -79,11 +77,13 @@ class Database:
         Session.configure(bind=self.engine)
         self.session = Session()
 
-    def read(self, tablename: str, filter=None):
+    def read(self, tablename: str, filter=None, order=None):
         tablename = set_table(tablename)
         query = self.session.query(tablename)
         if filter is not None:
             query = query.filter(filter)
+        if order is not None:
+            query = query.order_by(order)
         return query.statement, self.session.bind
 
     # insert function
