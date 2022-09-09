@@ -1,6 +1,8 @@
+import string
+from typing import Text
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import Column, Integer, String, Time
+from sqlalchemy import Column, Integer, String, Time , ForeignKey ,TEXT
 from sqlalchemy import Sequence
 
 Base = declarative_base()
@@ -33,24 +35,39 @@ class Cafe(Base):
         return f"{self.cafe_name}"
 
 
-#TODO
 class CafeAddress(Base):
-    pass
+    __tablename__ = 'cafe_address'
+    cafe_id = Column(Integer,ForeignKey("cafe.cafe_id"),primary_key=True)
+    cafe_address = Column(TEXT)
 
 class CafeFeatures(Base):
-    pass
+    __tablename__ = 'cafe_features'
+    cafe_id = Column(Integer,ForeignKey("cafe.cafe_id"),primary_key=True)
+    hookah = Column(Integer)
+    internet = Column(Integer)
+    delivery = Column(Integer)
+    smoking = Column(Integer)
+    open_space = Column(Integer)
+    live_music = Column(Integer)
+    parking = Column(Integer)
+    pos = Column(Integer)
 
 class CafeRating(Base):
-    pass
-
+    __tablename__ = 'cafe_rating'
+    cafe_id = Column(Integer,ForeignKey("cafe.cafe_id"),primary_key=True)
+    food_quality = Column(Integer)
+    service_quality = Column(Integer)
+    cost = Column(Integer)
+    cost_value = Column(Integer)
+    environment = Column(Integer)
 
 def set_table(tablename: str):
     tablename = tablename.title()
     match tablename:
         case "Cafe": return Cafe
-        case "Cafe_address": return CafeAddress
-        case "Cafe_features": return CafeFeatures
-        case "Cafe_rating": return CafeRating
+        case "Cafe_Address": return CafeAddress
+        case "Cafe_Features": return CafeFeatures
+        case "Cafe_Rating": return CafeRating
 
 
 class Database:
@@ -68,22 +85,22 @@ class Database:
         return self.session.query(tablename).statement, self.session.bind
 
     # insert function
-    def insert(self, tablename: str(), data):
-        tbname = tablename.lower()
-        if tbname == 'cafe':
-            tbcolumns = cafe_columns
-        elif tbname == 'cafe_address':
-            tbcolumns = cafe_columns_address
-        elif tbname == 'cafe_rating':
-            tbcolumns = cafe_columns_rating
-        else:
-            tbcolumns = cafe_columns_features
-        sql = f"INSERT INTO {tbname} " + \
-            '(' + ','.join(tbcolumns) + ')' + f" VALUES {data};"
-        try:
-            self.engine.execute(sql)
-        except Exception as e:
-            return e
+    # def insert(self, tablename: str(), data):
+    #     tbname = tablename.lower()
+    #     if tbname == 'cafe':
+    #         tbcolumns = cafe_columns
+    #     elif tbname == 'cafe_address':
+    #         tbcolumns = cafe_columns_address
+    #     elif tbname == 'cafe_rating':
+    #         tbcolumns = cafe_columns_rating
+    #     else:
+    #         tbcolumns = cafe_columns_features
+    #     sql = f"INSERT INTO {tbname} " + \
+    #         '(' + ','.join(tbcolumns) + ')' + f" VALUES {data};"
+    #     try:
+    #         self.engine.execute(sql)
+    #     except Exception as e:
+    #         return e
 
     # delete function
     def delete(self, tablename: str(), id):
