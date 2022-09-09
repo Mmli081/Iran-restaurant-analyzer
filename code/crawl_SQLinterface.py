@@ -2,8 +2,14 @@ import json
 from CRUD import Database
 from crawl import scrape
 
-result = json.load(scrape())
-db = Database()
+# result = json.load(scrape())
+# db = Database('127.0.0.1:3306','sobhan','$Gh9170392008','group4')
+
+# test
+import json
+with open("data/crawlSample.json") as f:
+    result = json.load(f)
+db = Database('localhost','mml','$Mml09357528086','group4Local')
 
 
 def time_format(time):
@@ -38,6 +44,7 @@ def insert_cafe_rating(result):
             data.append(row[att])
         data = tuple(data)
         db.insert('cafe_rating',data)
+        
 def insert_cafe_features(result):
     for i,row in enumerate(result):
         data = [i+1]
@@ -46,7 +53,9 @@ def insert_cafe_features(result):
         data = tuple(data)
         db.insert('cafe_features',data)
 
-insert_cafe(result)
-insert_cafe_address(result)
-insert_cafe_features(result)
-insert_cafe_rating(result)
+
+if __name__ == "__main__":
+    insert_cafe(result)
+    insert_cafe_address(result)
+    insert_cafe_features(result)
+    insert_cafe_rating(result)

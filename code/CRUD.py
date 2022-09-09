@@ -1,12 +1,12 @@
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 import pandas as pd
+
+# https://docs.sqlalchemy.org/en/14/orm/tutorial.html
+
 # connecting to data base
 class Database:
-    def __init__(self):
-        host = '127.0.0.1:3306'
-        user  = 'sobhan'
-        password = '$Gh9170392008'
-        db='group4'
+    def __init__(self, host, user, password, db):
         self.engine = create_engine(f'mysql+pymysql://{user}:{password}@{host}/{db}')
         # saving columns' name of table to wrtie functions
         self.cafe_columns = ('cafe_name','city','province','phone_number','cost','work_start','work_end')
@@ -34,7 +34,8 @@ class Database:
         try:
             return pd.DataFrame(self.engine.execute(sql),columns=tbcolumns)
         except Exception as e:
-            return e         
+            return e     
+
 # insert function 
     def insert(self,tablename : str() ,data):
         tbname = tablename.lower()
@@ -50,6 +51,7 @@ class Database:
             self.engine.execute(sql)
         except Exception as e:
             return e
+
 # delete function
     def delete(self,tablename : str() ,id):
         tbname = tablename.lower()
@@ -58,6 +60,7 @@ class Database:
             self.engine.execute(sql)
         except Exception as e:
             return e
+            
 # update functions
 # for cafe table
     def update_Cafe(self,id, data):
@@ -83,6 +86,7 @@ class Database:
 
         except Exception as e:
             return e
+
 # for cafe_features table  
     def update_Cafe_features(self,id, data):
         sql = 'UPDATE cafe SET hookah = {},internet = {},delivery = {},smoking = {},open_space = {},live_music = {},parking = {},pos = {}' + f' WHERE cafe_id = {id}'
@@ -91,6 +95,7 @@ class Database:
 
         except Exception as e:
             return e
+
 # truncate function
     def truncate(self,tablename : str()):
         tbname = tablename.lower()
