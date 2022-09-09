@@ -77,13 +77,15 @@ class Database:
         Session.configure(bind=self.engine)
         self.session = Session()
 
-    def read(self, tablename: str, filter=None, order=None):
+    def read(self, tablename: str, filter=None, order=None, n=0):
         tablename = set_table(tablename)
         query = self.session.query(tablename)
         if filter is not None:
             query = query.filter(filter)
         if order is not None:
             query = query.order_by(order)
+        if n > 0:
+            query = query.limit(n)
         return query.statement, self.session.bind
 
     # insert function

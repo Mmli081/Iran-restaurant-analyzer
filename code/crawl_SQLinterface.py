@@ -56,6 +56,7 @@ def insert_cafe_features(result):
         data = tuple(data)
         db.insert('cafe_features',data)
 
+#filters
 def filter_by_city(city):
     return set_table('cafe').city == city
 
@@ -76,8 +77,9 @@ def filter_by_range_cost(_from: int=0, _to: int=5):
     return and_(set_table('cafe').cost >= _from,
                 set_table('cafe').cost <= _to,)
 
-def read(tablename, filter=None, order=None):
-    return pd.read_sql(*db.read(tablename, filter, order))
+
+def read(tablename, filter=None, order=None, n=0):
+    return pd.read_sql(*db.read(tablename, filter, order, n))
 
 
 if __name__ == "__main__":
