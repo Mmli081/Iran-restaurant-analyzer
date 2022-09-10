@@ -2,6 +2,7 @@ import json
 from CRUD import Cafe, CafeAddress, CafeFeatures, CafeRating,Database, set_table
 from crawl import scrape
 import pandas as pd
+import sys
 
 db = Database('45.139.10.138:80','user_group4','OnhAeVtaxYca_group4','group4')
 
@@ -21,9 +22,12 @@ def last_id(tablename):
 def insert_cafe(result):
     obj_list = []
     for record in result:
+        province = record['province']
+        if sys.getsizeof(province)>64:
+            province = ' '.join(province.split()[0:3])
         data= {"cafe_name":record['name'],"city":record['city'],
-        "province":record['province'],'phone_number':record['phone'],
-        "cost":record['price_class'],"work_start":record['work_start'],"work_end":record['work_end']}
+        "province":province,'phone_number':record['phone'],
+        "cost":record['price_class'],"work_start":time_format(record['work_start']),"work_end":time_format(record['work_end'])}
         obj_list.append(Cafe(**data))
     db.insert(obj_list)
 
@@ -51,7 +55,7 @@ def insert_cafe_rating(result):
 def insert_cafe_features(result):
     obj_list = []
     LastID = last_id('cafe_features')+1
-    cafe_columns_features = ['cafe_id', 'hookah', 'internet', 'delivery',
+    cafe_columns_features = [ 'hookah', 'internet', 'delivery',
                          'smoking', 'open_space', 'live_music', 'parking', 'pos']
     for record in result:
         data = dict(zip(cafe_columns_features,prep_features(record['feature_list'])))
@@ -65,7 +69,13 @@ def read(tablename, filter=None, order=None, n=0):
 
 if __name__ == "__main__":
 
-    result = scrape()
+    # result = scrape()
+    db.truncate('cafe')
+    db.truncate('cafe_address')
+    db.truncate('cafe_rating')
+    db.truncate('cafe_features')
+    with open('D:\Quera\Iran-restaurant-analyzer\data\data.json', encoding='utf-8') as f:
+        result = json.load(f)
     insert_cafe(result)
     insert_cafe_address(result)
     insert_cafe_features(result)
