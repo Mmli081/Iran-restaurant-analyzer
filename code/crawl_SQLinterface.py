@@ -64,18 +64,15 @@ def insert_cafe_features(result):
         LastID+=1
     db.insert(obj_list)
 
-def read(tablename, filter=None, order=None, n=0):
+def read_to_df(tablename, filter=None, order=None, n=0):
     return pd.read_sql(db.read(tablename, filter, order, n).statement, db.session.bind)
+
+def read(tablename, filter, order, n):
+    return read(tablename, filter, order, n)
 
 if __name__ == "__main__":
 
-    # result = scrape()
-    db.truncate('cafe')
-    db.truncate('cafe_address')
-    db.truncate('cafe_rating')
-    db.truncate('cafe_features')
-    with open('D:\Quera\Iran-restaurant-analyzer\data\data.json', encoding='utf-8') as f:
-        result = json.load(f)
+    result = scrape()
     insert_cafe(result)
     insert_cafe_address(result)
     insert_cafe_features(result)
