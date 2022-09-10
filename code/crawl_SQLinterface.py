@@ -60,10 +60,9 @@ def insert_cafe_features(result):
 
 def read(tablename, filter=None, order=None, n=0):
     return pd.read_sql(*db.read(tablename, filter, order, n))
-
+db = Database('127.0.0.1:3306','sobhan','$Gh9170392008','group4')
 if __name__ == "__main__":
 
-    db = Database('45.139.10.138:80','user_group4','OnhAeVtaxYca_group4','group4')
     result = json.load(scrape())
     insert_cafe(result)
     insert_cafe_address(result)
