@@ -76,7 +76,7 @@ class Database:
             query = query.order_by(order)
         if n > 0:
             query = query.limit(n)
-        return query.statement, self.session.bind
+        return query
 
     # insert function
     def insert(self,data):

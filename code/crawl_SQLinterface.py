@@ -3,12 +3,14 @@ from CRUD import Cafe, CafeAddress, CafeFeatures, CafeRating,Database, set_table
 from crawl import scrape
 import pandas as pd
 
+db = Database('45.139.10.138:80','user_group4','OnhAeVtaxYca_group4','group4')
+
+db_feat = ['قلیان','اینترنت رایگان','ارسال رایگان (Delivery)','سیگار','فضای باز','موسیقی زنده','پارکینگ', 'دستگاه کارت خوان']
 
 # define some function to help inserting
 def time_format(time):
     return f"{int(time):02}:00" if ":" not in time else time
 def prep_features(features):
-    db_feat = ['قلیان','اینترنت رایگان','ارسال رایگان (Delivery)','سیگار','فضای باز','موسیقی زنده','پارکینگ', 'دستگاه کارت خوان']
     return tuple(1 if f in features else 0 for f in db_feat)
 def last_id(tablename):
         tablename = set_table(tablename)
@@ -59,12 +61,11 @@ def insert_cafe_features(result):
     db.insert(obj_list)
 
 def read(tablename, filter=None, order=None, n=0):
-    return pd.read_sql(*db.read(tablename, filter, order, n))
+    return pd.read_sql(db.read(tablename, filter, order, n).statement, db.session.bind)
 
 if __name__ == "__main__":
 
-    db = Database('45.139.10.138:80','user_group4','OnhAeVtaxYca_group4','group4')
-    result = json.load(scrape())
+    result = scrape()
     insert_cafe(result)
     insert_cafe_address(result)
     insert_cafe_features(result)
