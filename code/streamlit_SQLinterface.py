@@ -11,10 +11,26 @@ def filter_by_city(city):
 def filter_by_province(province):
     return set_table('cafe').province == province
 
-def filter_by_has_features(features: list):
-    f = read("cafe_features")
-    #macth with features reutn set_table.features
-    return set_table('cafe').cafe_id == f.cafe_id
+def match_feature(feature):
+    ind = db_feat.index(feature)
+    match ind:
+        case 0: return CafeFeatures.hookah
+        case 1: return CafeFeatures.internet
+        case 2: return CafeFeatures.delivery
+        case 3: return CafeFeatures.smoking
+        case 4: return CafeFeatures.open_space
+        case 5: return CafeFeatures.live_music
+        case 6: return CafeFeatures.parking
+        case 7: return CafeFeatures.pos
+
+def has_features(features: list):
+    f = db.session.query(CafeFeatures)
+    for i in features:
+        feature = match_feature(i)
+        f = f.filter(feature == 1)
+    f = pd.read_sql(f.statement, db.session.bind)
+    cafe = read("cafe")
+    return cafe[cafe.cafe_id.isin(f.cafe_id)]
 
 def filter_by_range_work_time(work_start: str, work_end="00:00"):
     work_start = datetime.strptime(work_start, '%H:%M').time()

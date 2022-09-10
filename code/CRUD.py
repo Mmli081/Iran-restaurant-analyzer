@@ -2,6 +2,7 @@ from operator import and_
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import Column, Integer, String, Time , ForeignKey ,TEXT
+from sqlalchemy.dialects.mysql import VARCHAR
 from sqlalchemy import Sequence, select, and_
 
 Base = declarative_base()
@@ -12,10 +13,10 @@ class Cafe(Base):
     __tablename__ = 'cafe'
 
     cafe_id = Column(Integer, Sequence('cafe_id_seq'), primary_key=True)
-    cafe_name = Column(String)
-    city = Column(String)
-    province = Column(String)
-    phone_number = Column(String)
+    cafe_name = Column(VARCHAR(64))
+    city = Column(VARCHAR(64))
+    province = Column(VARCHAR(64))
+    phone_number = Column(VARCHAR(64))
     cost = Column(Integer)
     work_start = Column(Time)
     work_end = Column(Time)
@@ -76,7 +77,7 @@ class Database:
             query = query.order_by(order)
         if n > 0:
             query = query.limit(n)
-        return query.statement, self.session.bind
+        return query
 
     # insert function
     def insert(self,data):
