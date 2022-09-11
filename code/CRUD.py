@@ -63,14 +63,17 @@ class Database:
 
     def __init__(self, host, user, password, db) -> None:
         self.engine = create_engine(
-            f'mysql+pymysql://{user}:{password}@{host}/{db}')
+            f'mysql+pymysql://{user}:{password}@{host}/{db}',
+            pool_size=10, max_overflow=20, pool_timeout=3600)
         Session = sessionmaker()
         Session.configure(bind=self.engine)
         self.session = Session()
 
     def read(self, tablename: str, filter=None, order=None, n=0):
-        tablename = set_table(tablename)
-        query = self.session.query(tablename)
+        if type(tablename) is str:
+            tablename = set_table(tablename)
+            query = self.session.query(tablename)
+        else: query = tablename
         if filter is not None:
             query = query.filter(filter)
         if order is not None:

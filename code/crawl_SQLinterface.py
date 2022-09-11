@@ -67,8 +67,8 @@ def insert_cafe_features(result):
 def read_to_df(tablename, filter=None, order=None, n=0):
     return pd.read_sql(db.read(tablename, filter, order, n).statement, db.session.bind)
 
-def read(tablename, filter, order, n):
-    return read(tablename, filter, order, n)
+def read_to_query(tablename, filter=None, order=None, n=0):
+    return db.read(tablename, filter, order, n)
 
 if __name__ == "__main__":
 
