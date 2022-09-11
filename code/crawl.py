@@ -35,10 +35,13 @@ def item_attrs(item_url, city) -> dict:
         " ".join(item["address"].split(" ")[:3])
     item["phone"] = item_soup.find("span", attrs={"property": "telephone"}).find('a').text.strip()
     item["price_class"] = int(item_soup.find("div", attrs={"class": "price-class"}).find_all("span")[-1].text)
-    _work_time = re.findall( r"[0-9:]+",
+    try:
+        _work_time = re.findall( r"[0-9:]+",
                     item_soup.find("ul", attrs={"class": "infolist"})\
                     .find_all("li")[-4]\
                     .find_all("span")[-1].text.strip())
+    except:
+        _work_time = ["0", "24"]
     item["work_start"] = _work_time[0]
     item["work_end"] = _work_time[-1]
     item["feature_list"] = [i.text for i in item_soup\
@@ -61,7 +64,7 @@ def scrape() -> list[dict]:
     for city in cities:
         pages = get_pages(get_soup(f"{URL}/in/{city}"))
         for page in range(pages+1):
-            items = get_items(get_soup(f"{URL}/in/{city}/?page={page}"))
+            items = get_items(get_soup(f"{URL}/in/{city}/?p={page}"))
             for item in items:
                 item_url = URL + item["href"].replace("coffeeshops/","")
                 try:
@@ -72,7 +75,7 @@ def scrape() -> list[dict]:
                     print(item_url)
     try:
         with open("data/data.json", 'w') as f:
-            f.write(json.dumps(result))
+            f.write(json.dumps(result, ensure_ascii=False))
     except:
         print("error on crate data json")
     return result
