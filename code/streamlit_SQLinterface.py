@@ -82,3 +82,10 @@ def bar_plot_rate_by_features(column,Features):
         value = value[value.cafe_id.isin(ids)]
         value = value[column].value_counts().sort_index()
     return value
+def get_mohalat():
+    with open(r'D:\Quera\Iran-restaurant-analyzer\data\mohalat.txt',encoding='utf-8') as f:
+        l=f.read().split('\n')
+    return l 
+def isopen(time):
+    return and_(set_table("cafe").work_start >= time,
+                set_table("cafe").work_end <= time)
