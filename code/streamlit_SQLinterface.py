@@ -10,7 +10,7 @@ def filter_by_city(city):
     return set_table('cafe').city == city
 
 def filter_by_province(province):
-    return set_table('cafe').province == province
+    return set_table('cafe').province.like(f"%{province}%")
 
 def match_feature(feature):
     ind = db_feat.index(feature)
