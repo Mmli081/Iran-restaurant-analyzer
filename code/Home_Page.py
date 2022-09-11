@@ -3,7 +3,7 @@ import streamlit as st
 import requests
 import pandas as pd
 
-st.title("Iran Resturan Analysis")
+st.title("Iran Resturants Analysis")
 st.subheader('welcome to our project :)')
 
 """
@@ -27,7 +27,7 @@ df.index = [x.title() for x in df.index]
 col1.dataframe(df)
 
 
-col2.subheader('Plotting the count of cafe in each city')
+col2.subheader('Plotting ')
 col2.line_chart(df)
 
 '''
