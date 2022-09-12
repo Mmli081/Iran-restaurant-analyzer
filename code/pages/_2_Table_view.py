@@ -51,6 +51,7 @@ if filter:
 
     if yes:
         q = read_to_query('cafe',filter=isopen(t))
+        #TODO
         q = read_to_query('cafe',filter=filter_by_city(city))
         q = read_to_query(q,filter=filter_by_range_cost(cost_value))
         if city=='tehran':    

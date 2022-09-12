@@ -48,6 +48,7 @@ def item_attrs(item_url, city) -> dict:
                             .find("div", attrs={"class": "venue-features-box"}).find_all("span")]
     _rates = item_soup.find("ul", attrs={"class": "rates-list"}).find_all("li")
     item["food_quality"] = int(_rates[0].div["data-rateit-value"])
+    if item["food_quality"] > 5: item["food_quality"] = 5
     item["service"] = int(_rates[1].div["data-rateit-value"])
     item["cost_value"] = int(_rates[2].div["data-rateit-value"])
     item["environment"] = int(_rates[3].div["data-rateit-value"])

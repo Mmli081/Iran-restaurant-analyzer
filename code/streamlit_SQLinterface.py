@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy import and_
 import matplotlib.pyplot as plt
 import seaborn as sns
+from Home_Page import *
 
 #filters
 def filter_by_city(city):
@@ -81,10 +82,30 @@ def bar_plot_rate_by_features(column,Features):
         value = value[value.cafe_id.isin(ids)]
         value = value[column].value_counts().sort_index()
     return value
+
 def get_mohalat():
-    with open(r'D:\Quera\Iran-restaurant-analyzer\data\mohalat.txt',encoding='utf-8') as f:
+    with open(f'data/mohalat.txt',encoding='utf-8') as f:
         l=f.read().split('\n')
-    return l 
+    return l
+
 def isopen(time):
     return and_(set_table("cafe").work_start >= time,
                 set_table("cafe").work_end <= time)
+
+def most_features():
+    cafe_df = read_to_df(cafe)
+    df = read_to_df(cafe_features)
+    df["sum_feat"] = df.iloc[:, 1:].sum(axis=1)
+    _max = df["sum_feat"].max()
+    res = cafe_df[df.sum_feat == _max].iloc[:, :4]
+    res["sum_features"] = df[df.sum_feat == _max]["sum_feat"]
+    return res.reset_index(drop=True)
+
+def highest_rate():
+    cafe_df = read_to_df(cafe)
+    rate_df = read_to_df(cafe_rating)
+    rate_df["mean_rate"] = rate_df.iloc[:, 1:].mean(axis=1)
+    _max = rate_df["mean_rate"].max()
+    res = cafe_df[rate_df["mean_rate"] == _max].iloc[:, :4]
+    res["mean_features"] = rate_df[rate_df["mean_rate"] == _max]["mean_rate"]
+    return res.reset_index(drop=True)
