@@ -39,12 +39,14 @@ if filter:
         case "expensive":  cost_value = 3
         case "costly": cost_value = 4
     if city=='tehran':
-        st.subheader('Province')
-        mohalat = tuple(get_mohalat())
-        province = st.selectbox(
-            'what province you want your cafe to be in?',
-            mohalat,
-            98)
+        filter_by_p =st.checkbox("if you wanna filter ny province it check the box")
+        if filter_by_p:
+            st.subheader('Province')
+            mohalat = tuple(get_mohalat())
+            province = st.selectbox(
+                'what province you want your cafe to be in?',
+                mohalat,
+                98)
 
     st.subheader('Features')
     Features = st.multiselect(
@@ -58,10 +60,11 @@ if filter:
         q = read_to_query(q, filter=isopen(t))
     q = read_to_query(q,filter=filter_by_city(city))
     q = read_to_query(q,filter=filter_by_range_cost(cost_value))
-    if city=='tehran':    
+    if city=='tehran' and filter_by_p :    
         q = read_to_query(q,filter=filter_by_province(province))
     df = read_to_df(q)
     show = df[df.cafe_id.isin(has_features(Features).cafe_id)].iloc[:,:5]
-    st.dataframe(show)
+    st.markdown(show.to_html(escape=False), unsafe_allow_html=True)
 else :
-    st.dataframe(read_to_df(cafe).iloc[:,:5])
+    d = read_to_df(cafe).iloc[:,:5]
+    st.markdown(d.to_html(escape=False), unsafe_allow_html=True)
