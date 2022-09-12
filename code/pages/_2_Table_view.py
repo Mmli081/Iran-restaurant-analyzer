@@ -4,6 +4,7 @@ import requests
 import pandas as pd
 from datetime import time, datetime
 from streamlit_SQLinterface import *
+from Home_Page import *
 
 st.title("Display Tables")
 
@@ -23,14 +24,16 @@ if filter:
         "select one or more city",
         ('sabzevar', 'bandarabbas', 'tehran', 'qazvin', 'urmia', 'kish',
            'karaj', 'ahwaz', 'tabriz', 'isfahan', 'zanjan', 'arak', 'hamedan',
-           'kerman', 'ghom', 'mashhad', 'shiraz')
-           ,2)
+           'kerman', 'ghom', 'mashhad', 'shiraz'),
+        index=6
+        )
     st.subheader('Cost')
     cost = st.radio(
         "what price range do you ?",
-        ("cheap","economical","expensive","costly"),
-        index= 2)
+        ("all","cheap","economical","expensive","costly"),
+        index= 0)
     match cost:
+        case "all" : cost_value = 0
         case "cheap": cost_value = 1
         case "economical": cost_value = 2
         case "expensive":  cost_value = 3
@@ -50,20 +53,15 @@ if filter:
         ('اینترنت رایگان'))
     st.write('Cafe should have : \n\n'+",".join(Features))
 
+    q = cafe
     if yes:
-        q = read_to_query('cafe',filter=isopen(t))
-        #TODO
-        q = read_to_query('cafe',filter=filter_by_city(city))
-        q = read_to_query(q,filter=filter_by_range_cost(cost_value))
-        if city=='tehran':    
-            q = read_to_query(q,filter=filter_by_province(province))
-    else :
-        q = read_to_query('cafe',filter=filter_by_city(city))
-        q = read_to_query(q,filter=filter_by_range_cost(cost_value))
-        if city=='tehran':
-            q = read_to_query(q,filter=filter_by_province(province))
+        q = read_to_query(q, filter=isopen(t))
+    q = read_to_query(q,filter=filter_by_city(city))
+    q = read_to_query(q,filter=filter_by_range_cost(cost_value))
+    if city=='tehran':    
+        q = read_to_query(q,filter=filter_by_province(province))
     df = read_to_df(q)
-    show = df[df.cafe_id.isin(has_features(Features).cafe_id)]
+    show = df[df.cafe_id.isin(has_features(Features).cafe_id)].iloc[:,:5]
     st.dataframe(show)
 else :
-    st.dataframe(read_to_df("cafe"))
+    st.dataframe(read_to_df(cafe).iloc[:,:5])

@@ -1,13 +1,16 @@
 from Home_Page import *
 from streamlit_SQLinterface import *
 
+st.subheader("Special cafes information")
+
+"""
+**Cafes with the most features**
+"""
 st.table(most_features())
 
-st.write("\n\n")
+"""
+**Cafes with highest mean rate**
+"""
 
-st.markdown(
-    """<style>
-        .dataframe {text-align: right !important}
-    </style>
-    """, unsafe_allow_html=True)
 st.dataframe(highest_rate())
+
