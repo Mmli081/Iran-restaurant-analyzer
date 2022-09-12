@@ -23,7 +23,8 @@ if filter:
         "select one or more city",
         ('sabzevar', 'bandarabbas', 'tehran', 'qazvin', 'urmia', 'kish',
            'karaj', 'ahwaz', 'tabriz', 'isfahan', 'zanjan', 'arak', 'hamedan',
-           'kerman', 'ghom', 'mashhad', 'shiraz'))
+           'kerman', 'ghom', 'mashhad', 'shiraz')
+           ,2)
     st.subheader('Cost')
     cost = st.radio(
         "what price range do you ?",
