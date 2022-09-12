@@ -41,9 +41,8 @@ def filter_by_range_work_time(work_start: str, work_end="00:00"):
     return and_(set_table("cafe").work_start >= work_start,
                 set_table("cafe").work_end <= work_end)
 
-def filter_by_range_cost(_from: int=0, _to: int=5):
-    return and_(set_table('cafe').cost >= _from,
-                set_table('cafe').cost <= _to,)
+def filter_by_range_cost(c_value):
+    return set_table('cafe').cost == c_value
 
 def read_to_df(tablename, filter=None, order=None, n=0):
     return pd.read_sql(db.read(tablename, filter, order, n).statement, db.session.bind)
