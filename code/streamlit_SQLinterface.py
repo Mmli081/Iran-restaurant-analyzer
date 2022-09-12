@@ -5,6 +5,7 @@ from sqlalchemy import and_
 import matplotlib.pyplot as plt
 import seaborn as sns
 from Home_Page import *
+import numpy as np
 
 #filters
 def filter_by_city(city):
@@ -109,5 +110,19 @@ def highest_rate():
     rate_df["mean_rate"] = rate_df.iloc[:, 1:].mean(axis=1)
     _max = rate_df["mean_rate"].max()
     res = cafe_df[rate_df["mean_rate"] == _max].iloc[:, :4]
-    res["mean_features"] = rate_df[rate_df["mean_rate"] == _max]["mean_rate"]
-    return res.reset_index(drop=True)
+    res["mean_rates"] = rate_df[rate_df["mean_rate"] == _max]["mean_rate"]
+    return res.sample(10).reset_index(drop=True)
+
+def work_start_p():
+    cafe_df = read_to_df(cafe)
+    s = cafe_df.groupby("work_start").agg('count')['cafe_id']
+    s.index = s.index.astype("str")
+    return np.round(s.sort_values(ascending=False)[:5] / s.sum() * 100, 1),\
+         s.sort_values(ascending=False)
+
+def work_end_p():
+    cafe_df = read_to_df(cafe)
+    s = cafe_df.groupby("work_end").agg('count')['cafe_id']
+    s.index = s.index.astype("str")
+    return np.round(s.sort_values(ascending=False)[:5] / s.sum() * 100, 1),\
+         s.sort_values(ascending=False)
