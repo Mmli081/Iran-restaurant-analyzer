@@ -1,14 +1,15 @@
 # Iran-restaurant-analyzer
 
-**In this project data are crawled from the [fidilio](https://fidilio.com/coffeeshops/in/tehran/) and inserted into the sample database(MySQL). Over 1100 data have been collected...  
+**In this project data are crawled from the [fidilio](https://fidilio.com/coffeeshops/in/tehran/) and inserted into the sample database(MySQL).  
+Over 1100 data have been collected...  
 By using the interfaces data are used for analysis and shown as a dashboard using streamlit**
 
 #### The following questions are answered:    
 
-* What features can have a effect on the rate of cafe?  
-* Is the place of cafe have an impact on rating?  
-* Do food quality and service quality and etc. rates have a meaningful relation with rate of the cafe?  
-* Does time of work affect the cafe business?
+* What features can affect the rate of cafes?  
+* Is the place of the cafe has an impact on rating?  
+* Do food quality and service quality, etc. rates have a meaningful relationship with the rate of the cafe?  
+* Does the time of work affect the cafe business?
 
 ### Installation
 `pip3 install -r requirements.txt`
